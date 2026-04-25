@@ -2,13 +2,21 @@ import asyncio
 from dotenv import load_dotenv
 import os
 
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+from langchain_openai import ChatOpenAI
+from langchain_mcp_adapters.tools import load_mcp_tools
+from langchain.agents import create_agent
+
 load_dotenv()
 
-print(os.getenv("OPENAI_API_KEY"))
-print(os.getenv("LANGCHAIN_API_KEY"))
-print(os.getenv("LANGCHAIN_TRACING_V2"))
-print(os.getenv("LANGCHAIN_ENDPOINT"))
-print(os.getenv("LANGCHAIN_PROJECT"))
+llm = ChatOpenAI()
+
+stdio_server_params = StdioServerParameters(
+    command="python",
+    args=["D:\\workspace\\mcp-servers\\mcp-crash-courseservers\\math_server.py"],
+)
 
 async def main():
     print("Hello from mcp-crash-course!")
